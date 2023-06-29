@@ -39,6 +39,14 @@
         align-items: center;
         background-color: coral;
     }
+    .edit_pro{
+        color: black;
+        background-color: #bd826c;
+        border-radius: 10px;
+    }
+    .sanpham{
+
+    }
 </style>
 <body onload="show_car()">
 <div class="thanh_menu">
@@ -49,8 +57,8 @@
         <a href="">Sản phẩm</a>
     </div>
     <form style="float: right" action="tim_kiem">
-        <input type="text" height="50px" width="50px" placeholder="Search.." name="search">
-        <button type="submit">
+        <input  type="text" height="50px" width="50px" placeholder="Search.." name="search">
+        <button id="google1" type="submit">
             <svg width="10" height="10" fill="currentColor" class="bi bi-search"
                  viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -58,7 +66,7 @@
         </button>
     </form>
 </div>
-<img src="5426200326232.jpg" height="400" width="100%"/>
+<img id="images" src="https://giaxebmw-vn.com/wp-content/uploads/2023/01/bn6.jpg" height="420" width="100%"/>
 <div class="container">
     <div class="item ">
                 <span class="icon">
@@ -102,15 +110,19 @@
     </div>
 </div>
 </div>
-<div id="edit_pro" style="margin-left:800px"> Thay đổi thông tin tại đây <br>
+<div>
+<div style="margin-left:430px"> Thay đổi thông tin tại đây <br>
     <input type="text" id="name" placeholder="Tên"> <br>
     <input type="text" id="img" placeholder="Ảnh"> <br>
     <input type="text" id="info" placeholder="Thông tin cần thay đổi"> <br>
     <input type="text" id="gia" placeholder="Giá"> <br>
-    <button onclick="new_Product()">Add</button>
-    <button onclick="update()">Edit</button>
+    <button class="edit_pro" style="margin-left:50px;" onclick="new_Product()">Add</button>
+    <button class="edit_pro" onclick="update()">Edit</button>
+</div>
+    <h1 style="margin-left:350px">Một số mẫu xe phổ biến</h1>
 </div>
 <div id="all_ds"></div>
+
 </body>
 <script>
     class Car {
@@ -126,35 +138,51 @@
             this.gia = gia
         }
     }
+    const images = [
+        "img/anhdaidien.webp",
+        "img/tuisach.jpg",
+        "img/anhbia1.jpeg",
+        "img/daylung.jpg",
+        "img/daylung1.jpg"
+    ];
+
+    let anh_swap = 0;
+
+    setInterval(() => {
+        const img = document.getElementById("my-img");
+        img.src = images[anh_swap];
+        anh_swap++;
+        if (anh_swap >= images.length) {
+            anh_swap = 0;
+        }
+    }, 3000);
 
     function hien_thi_car(arr) {
         let show_car = '';
         for (let i = 0; i < arr.length; i++) {
-            show_car += `   <div  class="sanPham"  style="float:left ; width: 300px; height: 300px ; solid #BEBEBE ;">
-             <img src="${arr[i].anh}" alt="${arr[i].ten}" style="width: 170px;height:100px;margin-left:30%;">
+            show_car += `   <div  class="sanPham"  style="float:left ; width: 300px; height: 350px; solid #BEBEBE ;">
+             <img src="${arr[i].anh}" alt="${arr[i].ten}" style="width: 210px;height:150px;margin-left:30%;">
             <div class="sanpham" style="margin-left:45%;">
             <h3>${arr[i].ten}</h3>
              <p>${arr[i].gia}</p>
              <p>${arr[i].thong_tin}</p>
-             <button onclick="edit(${i})">Edit</button>
-             <button onclick="Delete(${i})">Delete</button>
+             <button class="edit_pro" onclick="edit(${i})">Edit</button>
+             <button class="edit_pro" onclick="Delete(${i})">Delete</button>
 </div>
          </div> `
         }
         return show_car;
     }
-
-    let TOYOTA = new Car('Toyota', 'toyota1.jpg', 'Xe Nhật', '10000$~30000$')
-    let CHEVROLET = new Car('Chevrolet', 'chel1.jpg', 'Xe Mỹ', '10000$~30000$')
-    let FORD = new Car('Ford', "ford1.jpg", 'Xe Mỹ', '10000$~30000$')
-    let HUYNDAI = new Car('Huyndai', 'huydai1.jpg', 'Xe Hàn', '10000$~30000$')
-    let KIA = new Car('Kia', 'kia1.jpg', 'Xe Hàn', '10000$~30000$')
-    let LEXUS = new Car('Lexus', 'lexus1.jpg', 'Xe Nhật', '10000$~30000$')
-    let MAZDA = new Car('Mazda', 'mazda1.jpg', 'Xe Nhật', '10000$~30000$')
-    let PORSCHE = new Car('porche', 'porche1.jpg', 'Xe Đức', '10000$~30000$')
-    let MERCEDES_BEN = new Car('Mercedes_ben', 'mes1.jpg', 'Xe Nhật', '10000$~30000$')
-    let BMW = new Car('Bmw', 'bmw1.jpg', 'Xe Nhật', '10000$~30000$')
-    let all_ds = [TOYOTA, CHEVROLET, FORD, HUYNDAI, KIA, LEXUS, MAZDA, PORSCHE, MERCEDES_BEN, BMW]
+    let BMWi1 = new Car('M Sport Line', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnfi0TV7_7QV0VJCOd7VXCfCJgCzspaeGj_Q&usqp=CAU', 'Sport', '10000$~30000$')
+    let BMWi2 = new Car('BMW i8', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgFTgDWI6WV7rH_eH0j9FNkzobIsLez7cTyQ&usqp=CAU', 'Sport', '10000$~30000$')
+    let BMWi3 = new Car('BMW X5', "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIz_7VRGxaBF0HE1bytqvCQKbQwgvmifuw6Q&usqp=CAU", 'Sport Line ', '10000$~30000$')
+    let BMWi4 = new Car('BMW 4 Series Coupe F32', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_Xw7YzZ0_MDKdJHzr7Kq52Q_1A7PojaQH1w&usqp=CAU', 'Sport', '10000$~30000$')
+    let BMWi5 = new Car('Luxury Line', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQC1DcQpfIQaAyPTOQB_KsGI8VkcbhIFHX9iA&usqp=CAU', 'Sport Line Plus', '10000$~30000$')
+    let BMWi6 = new Car('M340i', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9CgOw9pvmrs0FlFM2GKoK9KxK8rfBfccEYh4cK4lctO4yWm-Su-8zrv-Jd5oJg1YVsiM&usqp=CAU', 'Sport Line Plus', '10000$~30000$')
+    let BMWi7 = new Car('BMW M', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzknhw9QV2pZSN7e2SEbfCWHxcMhsWOAknyQ&usqp=CAU', 'Sport Line ', '10000$~30000$')
+    let BMWi8 = new Car('BMW 5 Series G30', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlDh5J6ItbB2pneM1MoMsMBVBF9nafijhXhA&usqp=CAU', 'Sport Line ', '10000$~30000$')
+    let BMWi9 = new Car('BMW 3 Series Sedan F30', 'data:image/jpeg;base64,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', 'Sport Line ', '10000$~30000$')
+    let all_ds = [BMWi1,BMWi2, BMWi3, BMWi4, BMWi5, BMWi6, BMWi7, BMWi8, BMWi9]
 
     function show_car() {
         let str = hien_thi_car(all_ds);
@@ -178,8 +206,13 @@
     }
 
     function Delete(index) {
-        all_ds.splice(index, 1)
-        show_car()
+        let check = confirm("Bạn chắc chắn muốn xoá không")
+        if (check){
+            all_ds.splice(index, 1)
+            show_car()
+        }else {
+            alert("Bạn buộc phải xoá")
+        }
     }
 
     let dem
@@ -204,5 +237,6 @@
         document.getElementById('gia').value = '';
         show_car()
     }
+
 </script>
 </html>
