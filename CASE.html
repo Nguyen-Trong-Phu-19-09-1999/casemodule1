@@ -5,12 +5,6 @@
     <title>Title</title>
 </head>
 <style>
-    .anh1 {
-
-        width: 200px;
-        height: 100px;
-    }
-
     body {
         margin: 0;
     }
@@ -44,10 +38,6 @@
         display: flex;
         align-items: center;
         background-color: coral;
-    }
-
-    .edit_pro {
-
     }
 </style>
 <body onload="show_car()">
@@ -112,12 +102,13 @@
     </div>
 </div>
 </div>
-<div id="edit_pro">
+<div id="edit_pro" style="margin-left:800px"> Thay đổi thông tin tại đây <br>
     <input type="text" id="name" placeholder="Tên"> <br>
     <input type="text" id="img" placeholder="Ảnh"> <br>
     <input type="text" id="info" placeholder="Thông tin cần thay đổi"> <br>
+    <input type="text" id="gia" placeholder="Giá"> <br>
     <button onclick="new_Product()">Add</button>
-    <button onclick="update()">edit</button>
+    <button onclick="update()">Edit</button>
 </div>
 <div id="all_ds"></div>
 </body>
@@ -125,47 +116,44 @@
     class Car {
         ten
         anh
-
         thong_tin
+        gia
 
-
-        constructor(ten, anh, thong_tin) {
+        constructor(ten, anh, thong_tin, gia) {
             this.ten = ten;
             this.anh = anh;
-
             this.thong_tin = thong_tin;
-
+            this.gia = gia
         }
     }
 
     function hien_thi_car(arr) {
         let show_car = '';
         for (let i = 0; i < arr.length; i++) {
-            show_car += `   <div  class="sanPham"  style="float:left ; width: 280px; height: 480px ; border: 1px solid #BEBEBE ;">
-             <img src="${arr[i].anh}" alt="${arr[i].ten}" style="width: 250px;height: auto;margin-left:10px;">
-            <div class="ttSanpham">
+            show_car += `   <div  class="sanPham"  style="float:left ; width: 300px; height: 300px ; solid #BEBEBE ;">
+             <img src="${arr[i].anh}" alt="${arr[i].ten}" style="width: 170px;height:100px;margin-left:30%;">
+            <div class="sanpham" style="margin-left:45%;">
             <h3>${arr[i].ten}</h3>
-
+             <p>${arr[i].gia}</p>
              <p>${arr[i].thong_tin}</p>
              <button onclick="edit(${i})">Edit</button>
              <button onclick="Delete(${i})">Delete</button>
-
 </div>
          </div> `
         }
         return show_car;
     }
 
-    let TOYOTA = new Car('Toyota', 'toyota1.jpg', 'Xe Nhật')
-    let CHEVROLET = new Car('Chevrolet', 'chel1.jpg', 'Xe Mỹ')
-    let FORD = new Car('Ford', "ford1.jpg", 'Xe Mỹ',)
-    let HUYNDAI = new Car('Huyndai', 'huydai1.jpg', 'Xe Hàn')
-    let KIA = new Car('Kia', 'kia1.jpg', 'Xe Hàn')
-    let LEXUS = new Car('Lexus', 'lexus1.jpg', 'Xe Nhật')
-    let MAZDA = new Car('Mazda', 'mazda1.jpg', 'Xe Nhật')
-    let PORSCHE = new Car('porche', 'porche1.jpg', 'Xe Đức')
-    let MERCEDES_BEN = new Car('Mercedes_ben', 'mes1.jpg', 'Xe Nhật')
-    let BMW = new Car('Bmw', 'bmw1.jpg', 'Xe Nhật')
+    let TOYOTA = new Car('Toyota', 'toyota1.jpg', 'Xe Nhật', '10000$~30000$')
+    let CHEVROLET = new Car('Chevrolet', 'chel1.jpg', 'Xe Mỹ', '10000$~30000$')
+    let FORD = new Car('Ford', "ford1.jpg", 'Xe Mỹ', '10000$~30000$')
+    let HUYNDAI = new Car('Huyndai', 'huydai1.jpg', 'Xe Hàn', '10000$~30000$')
+    let KIA = new Car('Kia', 'kia1.jpg', 'Xe Hàn', '10000$~30000$')
+    let LEXUS = new Car('Lexus', 'lexus1.jpg', 'Xe Nhật', '10000$~30000$')
+    let MAZDA = new Car('Mazda', 'mazda1.jpg', 'Xe Nhật', '10000$~30000$')
+    let PORSCHE = new Car('porche', 'porche1.jpg', 'Xe Đức', '10000$~30000$')
+    let MERCEDES_BEN = new Car('Mercedes_ben', 'mes1.jpg', 'Xe Nhật', '10000$~30000$')
+    let BMW = new Car('Bmw', 'bmw1.jpg', 'Xe Nhật', '10000$~30000$')
     let all_ds = [TOYOTA, CHEVROLET, FORD, HUYNDAI, KIA, LEXUS, MAZDA, PORSCHE, MERCEDES_BEN, BMW]
 
     function show_car() {
@@ -177,13 +165,15 @@
         let ten = document.getElementById('name').value;
         let anh = document.getElementById('img').value;
         let info = document.getElementById('info').value;
-        let car = new Car(ten, anh, info);
-        if (ten !== '' && anh !== '' && info !== '') {
+        let gia = document.getElementById('gia').value;
+        let car = new Car(ten, anh, info, gia);
+        if (ten !== '' && anh !== '' && info !== ''&& gia !== '') {
             all_ds.push(car)
         }
         document.getElementById('name').value = '';
         document.getElementById('img').value = '';
         document.getElementById('info').value = '';
+        document.getElementById('gia').value = '';
         show_car()
     }
 
@@ -199,6 +189,7 @@
         document.getElementById('name').value = all_ds[index].ten;
         document.getElementById('img').value = all_ds[index].anh;
         document.getElementById('info').value = all_ds[index].thong_tin;
+        document.getElementById('gia').value = all_ds[index].gia;
         showC_car()
     }
 
@@ -206,9 +197,11 @@
         all_ds[dem].ten = document.getElementById('name').value
         all_ds[dem].anh = document.getElementById('img').value
         all_ds[dem].thong_tin = document.getElementById('info').value
+        all_ds[dem].gia = document.getElementById('gia').value
         document.getElementById('name').value = '';
         document.getElementById('img').value = '';
         document.getElementById('info').value = '';
+        document.getElementById('gia').value = '';
         show_car()
     }
 </script>
