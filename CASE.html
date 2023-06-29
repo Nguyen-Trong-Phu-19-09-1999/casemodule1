@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .anh1 {
+
+        width: 200px;
+        height: 100px;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    .thanh_menu {
+        top: 0;
+        position: fixed;
+        width: 100%;
+        display: block;
+        overflow: hidden;
+        background-color: #333;
+    }
+
+    .thanh_menu a {
+        float: left;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 3px 15px;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .thanh_menu a:hover {
+        background-color: #dddddd;
+        color: black;
+    }
+
+    .item {
+        float: left;
+        width: 25%;
+        display: flex;
+        align-items: center;
+        background-color: coral;
+    }
+
+    .edit_pro {
+
+    }
+</style>
+<body onload="show_car()">
+<div class="thanh_menu">
+    <div>
+        <a href="">Trang chủ</a>
+        <a href="https://xehay.vn/">Tin tức</a>
+        <a href="">Liên hệ</a>
+        <a href="">Sản phẩm</a>
+    </div>
+    <form style="float: right" action="tim_kiem">
+        <input type="text" height="50px" width="50px" placeholder="Search.." name="search">
+        <button type="submit">
+            <svg width="10" height="10" fill="currentColor" class="bi bi-search"
+                 viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+        </button>
+    </form>
+</div>
+<img src="5426200326232.jpg" height="400" width="100%"/>
+<div class="container">
+    <div class="item ">
+                <span class="icon">
+                    <img class="img-responsive center-block basic lazied"
+                         src="https://hinhanh.webvua.com/images/service/4850/resize/4202422522222.png"
+                         alt="Miễn phí vận chuyển" data-lazied="IMG">
+                </span>
+        <div class="text">
+            <p>Miễn phí vận chuyển</p>
+        </div>
+    </div>
+    <div class="item ">
+                <span class="icon">
+                    <img class="img-responsive center-block basic lazied"
+                         src="https://hinhanh.webvua.com/images/service/4850/resize/3222121222225.png"
+                         alt="HOÀN TRẢ TIỀN" data-lazied="IMG">
+                </span>
+        <div class="text">
+            <p>HOÀN TRẢ TIỀN</p>
+        </div>
+    </div>
+    <div class="item ">
+                <span class="icon">
+                    <img class="img-responsive center-block basic lazied"
+                         src="https://hinhanh.webvua.com/images/service/4850/resize/0122244222222.png"
+                         alt="HỖ TRỢ TRỰC TUYẾN" data-lazied="IMG">
+                </span>
+        <div class="text">
+            <p>HỖ TRỢ TRỰC TUYẾN</p>
+        </div>
+    </div>
+    <div class="item ">
+                <span class="icon">
+                    <img class="img-responsive center-block basic lazied"
+                         src="https://hinhanh.webvua.com/images/service/4850/resize/4203243520120.png" alt="THANH TOÁN"
+                         data-lazied="IMG">
+                </span>
+        <div class="text">
+            <p>THANH TOÁN</p>
+        </div>
+    </div>
+</div>
+</div>
+<div id="edit_pro">
+    <input type="text" id="name" placeholder="Tên"> <br>
+    <input type="text" id="img" placeholder="Ảnh"> <br>
+    <input type="text" id="info" placeholder="Thông tin cần thay đổi"> <br>
+    <button onclick="new_Product()">Add</button>
+    <button onclick="update()">edit</button>
+</div>
+<div id="all_ds"></div>
+</body>
+<script>
+    class Car {
+        ten
+        anh
+
+        thong_tin
+
+
+        constructor(ten, anh, thong_tin) {
+            this.ten = ten;
+            this.anh = anh;
+
+            this.thong_tin = thong_tin;
+
+        }
+    }
+
+    function hien_thi_car(arr) {
+        let show_car = '';
+        for (let i = 0; i < arr.length; i++) {
+            show_car += `   <div  class="sanPham"  style="float:left ; width: 280px; height: 480px ; border: 1px solid #BEBEBE ;">
+             <img src="${arr[i].anh}" alt="${arr[i].ten}" style="width: 250px;height: auto;margin-left:10px;">
+            <div class="ttSanpham">
+            <h3>${arr[i].ten}</h3>
+
+             <p>${arr[i].thong_tin}</p>
+             <button onclick="edit(${i})">Edit</button>
+             <button onclick="Delete(${i})">Delete</button>
+
+</div>
+         </div> `
+        }
+        return show_car;
+    }
+
+    let TOYOTA = new Car('Toyota', 'toyota1.jpg', 'Xe Nhật')
+    let CHEVROLET = new Car('Chevrolet', 'chel1.jpg', 'Xe Mỹ')
+    let FORD = new Car('Ford', "ford1.jpg", 'Xe Mỹ',)
+    let HUYNDAI = new Car('Huyndai', 'huydai1.jpg', 'Xe Hàn')
+    let KIA = new Car('Kia', 'kia1.jpg', 'Xe Hàn')
+    let LEXUS = new Car('Lexus', 'lexus1.jpg', 'Xe Nhật')
+    let MAZDA = new Car('Mazda', 'mazda1.jpg', 'Xe Nhật')
+    let PORSCHE = new Car('porche', 'porche1.jpg', 'Xe Đức')
+    let MERCEDES_BEN = new Car('Mercedes_ben', 'mes1.jpg', 'Xe Nhật')
+    let BMW = new Car('Bmw', 'bmw1.jpg', 'Xe Nhật')
+    let all_ds = [TOYOTA, CHEVROLET, FORD, HUYNDAI, KIA, LEXUS, MAZDA, PORSCHE, MERCEDES_BEN, BMW]
+
+    function show_car() {
+        let str = hien_thi_car(all_ds);
+        document.getElementById('all_ds').innerHTML = str;
+    }
+
+    function new_Product() {
+        let ten = document.getElementById('name').value;
+        let anh = document.getElementById('img').value;
+        let info = document.getElementById('info').value;
+        let car = new Car(ten, anh, info);
+        if (ten !== '' && anh !== '' && info !== '') {
+            all_ds.push(car)
+        }
+        document.getElementById('name').value = '';
+        document.getElementById('img').value = '';
+        document.getElementById('info').value = '';
+        show_car()
+    }
+
+    function Delete(index) {
+        all_ds.splice(index, 1)
+        show_car()
+    }
+
+    let dem
+
+    function edit(index) {
+        dem = index
+        document.getElementById('name').value = all_ds[index].ten;
+        document.getElementById('img').value = all_ds[index].anh;
+        document.getElementById('info').value = all_ds[index].thong_tin;
+        showC_car()
+    }
+
+    function update() {
+        all_ds[dem].ten = document.getElementById('name').value
+        all_ds[dem].anh = document.getElementById('img').value
+        all_ds[dem].thong_tin = document.getElementById('info').value
+        document.getElementById('name').value = '';
+        document.getElementById('img').value = '';
+        document.getElementById('info').value = '';
+        show_car()
+    }
+</script>
+</html>
